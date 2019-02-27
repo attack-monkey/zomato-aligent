@@ -1,0 +1,36 @@
+{
+  "name": "react-fn-seed",
+  "version": "1.0.0",
+  "description": "A Seed Project for React-Fn",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test",
+    "start": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attack-monkey/react-fn-seed.git"
+  },
+  "keywords": [
+    "react",
+    "react-fn",
+    "functional",
+    "douglas"
+  ],
+  "author": "attack-monkey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/attack-monkey/react-fn-seed/issues"
+  },
+  "homepage": "https://github.com/attack-monkey/react-fn-seed#readme",
+  "dependencies": {
+    "@types/react": "^16.8.4",
+    "bootstrap": "^4.3.1",
+    "react": "^16.8.3",
+    "react-fn": "^1.0.3"
+  },
+  "devDependencies": {
+    "sass": "^1.17.2",
+    "typescript": "^3.3.3333"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "zomato-aligent-server",
+  "version": "1.0.0",
+  "description": "Basic server for project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node src/index.js"
+  },
+  "author": "attack-monkey",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

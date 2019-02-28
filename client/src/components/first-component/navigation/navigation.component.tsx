@@ -6,6 +6,8 @@ import { Slider } from '../../shared/slider/slider.component';
 
 interface Props { state: State, actions: Actions };
 export const Navigation = ({ state, actions }: Props) => {
+    if (!state.categories.firstFetch) { actions.getCategories(); }
+    if (!state.categories.firstFetch) { actions.getCuisines(); }
     return (
         <div>
             <div className="float-left">

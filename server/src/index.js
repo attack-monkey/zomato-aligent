@@ -33,6 +33,42 @@ app.get('/restaurants', async (req, res) => {
         res.sendStatus('500');
     }
 });
+app.get('/categories', async (req, res) => {
+    try {
+        results = await fetch(
+            `
+                ${config.zomatoUrl}categories
+            `,
+            {
+                headers: config.requestHeaders,
+                method: 'get'
+            }
+        );
+        console.log(results);
+        if (results.error) throw results.error;
+        res.send({ message: results });
+    } catch (e) {
+        res.sendStatus('500');
+    } 
+});
+app.get('/cuisines', async (req, res) => {
+    try {
+        results = await fetch(
+            `
+                ${config.zomatoUrl}cuisines?city_id=${config.cityId}
+            `,
+            {
+                headers: config.requestHeaders,
+                method: 'get'
+            }
+        );
+        console.log(results);
+        if (results.error) throw results.error;
+        res.send({ message: results });
+    } catch (e) {
+        res.sendStatus('500');
+    } 
+})
 
 app.listen(port, () => {
     console.log(`Server-side app listening on port ${port}!`);

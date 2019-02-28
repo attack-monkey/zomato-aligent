@@ -1,13 +1,19 @@
-export type StateNode = 'greeting';
+export type StateNode = 'greeting' | 'restaurants';
 
-export type State_greeting = string;
+export interface State_Restaurants {
+    firstFetch: boolean,
+    list: string[]
+}
 
 export interface State {
     route: string[],
-    greeting: State_greeting
+    restaurants: State_Restaurants
 }
 
-export const state = {
+export const state: State = {
     route: [],
-    greeting: ''
+    restaurants: {
+        firstFetch: false,
+        list: []
+    }
 };

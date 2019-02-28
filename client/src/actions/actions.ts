@@ -1,5 +1,5 @@
 import { Fn } from "react-fn";
-import { StateNode, State_Restaurants, State_Categories, State_Cuisines } from "../state/state";
+import { StateNode, State_Zomato_Basic_List } from "../state/state";
 import { $fetch } from "../../utils/fetch/fetch";
 
 export interface Actions {
@@ -9,16 +9,14 @@ export interface Actions {
 }
 export const actions = (fn: Fn): Actions => ({
     getRestaurants: async () => {
+        fn.updateState(stateNode('restaurants/firstFetch'), true, { rerender: false });
         try {
             const result = await $fetch('http://localhost:3000/restaurants', {
                 method: 'get'
             });
             return fn.updateState(
-                stateNode('restaurants'), 
-                stateValue<State_Restaurants>({
-                    firstFetch: true,
-                    list: result.message
-                })
+                stateNode('restaurants/list'), 
+                stateValue<State_Zomato_Basic_List>(result.message)
             );
         } catch (e) {
             console.error('Unable to fetch restaurants');
@@ -26,16 +24,14 @@ export const actions = (fn: Fn): Actions => ({
         }
     },
     getCategories: async () => {
+        fn.updateState(stateNode('categories/firstFetch'), true, { rerender: false });
         try {
             const result = await $fetch('http://localhost:3000/categories', {
                 method: 'get'
             });
             return fn.updateState(
-                stateNode('categories'), 
-                stateValue<State_Categories>({
-                    firstFetch: true,
-                    list: result.message
-                })
+                stateNode('categories/list'), 
+                stateValue<State_Zomato_Basic_List>(result.message)
             );
         } catch (e) {
             console.error('Unable to fetch categories');
@@ -43,16 +39,14 @@ export const actions = (fn: Fn): Actions => ({
         }
     },
     getCuisines: async () => {
+        fn.updateState(stateNode('cuisines/firstFetch'), true, { rerender: false });
         try {
             const result = await $fetch('http://localhost:3000/cuisines', {
                 method: 'get'
             });
             return fn.updateState(
-                stateNode('cuisines'), 
-                stateValue<State_Cuisines>({
-                    firstFetch: true,
-                    list: result.message
-                })
+                stateNode('cuisines/list'), 
+                stateValue<State_Zomato_Basic_List>(result.message)
             );
         } catch (e) {
             console.error('Unable to fetch cuisines');

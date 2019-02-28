@@ -1,0 +1,1 @@
+module.exports = (restaurants) => restaurants.map(restaurant => restaurant.restaurant.name);

@@ -10,7 +10,7 @@ export const RestaurantList = ({ state, actions }: Props) => {
         <div>
             <h3>Results</h3>
             <ul className="list-group list-group-flush">
-                { displayList(state) }
+                { displayList(state, actions) }
             </ul>
         </div>
     );

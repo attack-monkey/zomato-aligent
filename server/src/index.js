@@ -30,9 +30,7 @@ app.get('/restaurants', async (req, res) => {
         console.log(queryString);
         results = await fetch(
             `
-                ${config.zomatoUrl}search?
-                entity_id=${config.cityId}&
-                entity_type=city&count=20&${queryString}
+                ${config.zomatoUrl}search?entity_id=${config.cityId}&entity_type=city&count=20&${queryString}
             `,
             {
                 headers: config.requestHeaders,
@@ -45,6 +43,24 @@ app.get('/restaurants', async (req, res) => {
         res.send({ message: parsedResults });
     } catch (e) {
         console.log('error - ', e.message);
+        res.sendStatus('500');
+    }
+});
+app.get('/restaurants/:id', async (req, res) => {
+    try {
+        console.log('- Getting restaurant => ' + req.params.id);
+        results = await fetch(
+            `${config.zomatoUrl}restaurant?res_id=${req.params.id}`,
+            {
+                headers: config.requestHeaders,
+                method: 'get'
+            }
+        );
+        if (results.error) throw results.error;
+        console.log('- Returning fresh restaurant');
+        res.send({ message: results });
+    } catch (e) {
+        return console.log('error - ', e.message);
         res.sendStatus('500');
     }
 });

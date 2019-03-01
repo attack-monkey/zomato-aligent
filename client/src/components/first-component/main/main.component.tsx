@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { State } from '../../../state/state';
 import { Actions } from '../../../actions/actions';
-import { appTitle } from '../../../constants/app-title.const';
+import { SelectedRestaurant } from './selected-restaurant/selected-restaurant.component';
+import { NoSelectedRestaurant } from './no-selected-restaurant/no-selected-restaurant.component';
 
 const mainStyle = {
     height: '100%'
@@ -12,10 +13,14 @@ export const Main = ({ state, actions }: Props) => {
     return (
         <div className="col-md-8" style={mainStyle}>
             <div className="jumbotron jumbotron-fluid text-center">
-                <h1 className="display-4">
-                    Welcome to 
-                </h1>
-                <p className="lead">{appTitle}</p>
+                {
+                    state.selectedRestaurant ? (
+                        <SelectedRestaurant state={state} actions={actions}></SelectedRestaurant>
+                    ) : (
+                        <NoSelectedRestaurant></NoSelectedRestaurant>
+                    )
+                }
+                
             </div>
         </div>
     );

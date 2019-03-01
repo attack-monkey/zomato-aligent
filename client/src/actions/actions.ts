@@ -11,7 +11,8 @@ export interface Actions {
     getCuisines: () => void,
     updateListItemActiveState: (id: string, active: boolean) => void,
     updateSortBySlider: (newValue: string) => void,
-    updateHiLoSlider: (newValue: string) => void
+    updateHiLoSlider: (newValue: string) => void,
+    getSelectedRestaurant: (id: string | number) => void
 }
 export const actions = (fn: Fn): Actions => ({
     getRestaurants: async () => {
@@ -25,10 +26,10 @@ export const actions = (fn: Fn): Actions => ({
         const queryParams = joinQueryParams([categoriesQueryParams, cuisinesQueryParams, sortParams, orderParams]);
         console.log(queryParams);
         try {
-            // const result = await $fetch('http://localhost:3000/restaurants' + queryParams, {
-            //     method: 'get'
-            // });
-            const result = { message: []};
+            const result = await $fetch('http://localhost:3000/restaurants' + queryParams, {
+                method: 'get'
+            });
+            // const result = { message: []};
             return fn.updateState(
                 stateNode('restaurants/list'),
                 stateValue<State_Zomato_Basic_List>(result.message)
@@ -102,6 +103,20 @@ export const actions = (fn: Fn): Actions => ({
     },
     updateHiLoSlider: (newValue: string) => {
         fn.updateState(stateNode('sortByOrder'), newValue) 
+    },
+    getSelectedRestaurant: async(id) => {
+        try {
+            const result = await $fetch('http://localhost:3000/restaurants/' + id, {
+                method: 'get'
+            });
+            return fn.updateState(
+                stateNode('selectedRestaurant'),
+                stateValue<State_Zomato_Basic_List>(result.message)
+            );
+        } catch (e) {
+            console.error('Unable to fetch this restaurant', e.message);
+            return;
+        }
     }
 });
 

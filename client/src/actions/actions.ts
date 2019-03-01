@@ -1,5 +1,5 @@
 import { Fn } from "react-fn";
-import { StateNode, State_Zomato_Basic_List } from "../state/state";
+import { StateNode, State_Zomato_Basic_List, State_List_In_View, State } from "../state/state";
 import { $fetch } from "../../utils/fetch/fetch";
 
 export interface Actions {
@@ -19,7 +19,7 @@ export const actions = (fn: Fn): Actions => ({
                 stateValue<State_Zomato_Basic_List>(result.message)
             );
         } catch (e) {
-            console.error('Unable to fetch restaurants');
+            console.error('Unable to fetch restaurants', e.message);
             return;
         }
     },
@@ -29,13 +29,30 @@ export const actions = (fn: Fn): Actions => ({
             const result = await $fetch('http://localhost:3000/categories', {
                 method: 'get'
             });
-            return fn.updateState(
-                stateNode('categories/list'), 
-                stateValue<State_Zomato_Basic_List>(result.message)
-            );
+            // Purge any non-existent categories from view
+            const categoriesInView = (fn.getState() as State).categories.inView;
+            const categoriesFromCall = result.message;
+            const newCategoriesInView = categoriesInView
+                .map(category => {
+                    const categoryFromCall = categoriesFromCall
+                        .find((categoryFromCall: any) => categoryFromCall.id == category.id);
+                    if (!categoryFromCall) {
+                        return undefined;
+                    } else {
+                        return category
+                    }
+                })
+                .filter(category => category);
+            // Update localStorage
+            localStorage.setItem('categoriesInView', JSON.stringify(newCategoriesInView));
+            // Update state
+            return fn.updateMulti([
+                { node: stateNode('categories/list'), value: stateValue<State_Zomato_Basic_List>(result.message) },
+                { node: stateNode('categories/inView'), value: newCategoriesInView}
+            ]);
         } catch (e) {
-            console.error('Unable to fetch categories');
-            return;
+            console.error('Unable to fetch categories', e.message);
+            return [];
         }
     },
     getCuisines: async () => {
@@ -49,7 +66,7 @@ export const actions = (fn: Fn): Actions => ({
                 stateValue<State_Zomato_Basic_List>(result.message)
             );
         } catch (e) {
-            console.error('Unable to fetch cuisines');
+            console.error('Unable to fetch cuisines', e.message);
             return;
         }
     }

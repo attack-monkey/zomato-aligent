@@ -5,6 +5,8 @@ const port = 3000;
 const fetch = require('./fetch/fetch');
 const config = require('./config/config');
 const parseRestaurants = require('./functions/parse-restaurants-into-digest.fn');
+const parseCategories = require('./functions/parse-categories.fn');
+const parseCuisines = require('./functions/parse-cuisines.fn');
 
 app.use(express.json());
 app.use(cors());
@@ -50,7 +52,7 @@ app.get('/restaurants', async (req, res) => {
         console.log('- Returning fresh restaurants');
         res.send({ message: parsedResults });
     } catch (e) {
-        console.error(e);
+        console.log('error - ', e.message);
         res.sendStatus('500');
     }
 });
@@ -71,11 +73,14 @@ app.get('/categories', async (req, res) => {
             }
         );
         if (results.error) throw results.error;
+        console.log(results);
+        const parsedResults = parseCategories(results.categories);
         console.log('- Caching categories');
-        categoriesCache.value = { message: results };
+        categoriesCache.value = { message: parsedResults };
         console.log('- Returning fresh categories');
-        res.send({ message: results });
+        res.send({ message: parsedResults });
     } catch (e) {
+        console.log('error - ', e.message);
         res.sendStatus('500');
     } 
 });
@@ -96,11 +101,13 @@ app.get('/cuisines', async (req, res) => {
             }
         );
         if (results.error) throw results.error;
+        const parsedResults = parseCuisines(results.cuisines);
         console.log('- Caching cuisines');
-        cuisinesCache.value = { message: results };
+        cuisinesCache.value = { message: parsedResults };
         console.log('- Returning fresh cuisines');
-        res.send({ message: results });
+        res.send({ message: parsedResults });
     } catch (e) {
+        console.log('error - ', e.message);
         res.sendStatus('500');
     } 
 })

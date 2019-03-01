@@ -3,23 +3,23 @@ import { State } from '../../../state/state';
 import { Actions } from '../../../actions/actions';
 import { CheckList } from '../../shared/check-list/check-list.component';
 import { Slider } from '../../shared/slider/slider.component';
+import { CuisineList } from './cuisine-list/cuisine-list.component';
+import { TextIndentWithCheckbox } from '../../shared/text-indent-with-checkbox/text-indent-with-checkbox.component';
 
 interface Props { state: State, actions: Actions };
 export const Navigation = ({ state, actions }: Props) => {
     if (!state.categories.firstFetch) { actions.getCategories(); }
-    if (!state.categories.firstFetch) { actions.getCuisines(); }
+    if (!state.cuisines.firstFetch) { actions.getCuisines(); }
     return (
         <div>
             <div className="float-left">
                 <h3>Category</h3>
-                <CheckList state={state} actions={actions}></CheckList>
+                <CheckList list={state.categories.inView} showMore={true} actions={actions}></CheckList>
                 <div className="clearfix"></div>
             </div>
             <div className="float-left">
                 <h3>Cuisine</h3>
-                <CheckList state={state} actions={actions}></CheckList>
-                <CheckList state={state} actions={actions}></CheckList>
-                <CheckList state={state} actions={actions}></CheckList>
+                <CuisineList list={state.cuisines.inView} actions={actions}></CuisineList>
                 <div className="clearfix"></div>
             </div>
             <div className="float-right">

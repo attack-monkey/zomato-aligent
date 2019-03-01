@@ -10,7 +10,7 @@ interface Props {state: State, actions: Actions};
 export const firstComponent = ({state, actions}: Props) => {
     return (
         <div>
-            {/* <pre>{JSON.stringify(state, undefined, 2)}</pre> */}
+            <pre>{JSON.stringify(state, undefined, 2)}</pre>
             <Header></Header>
             <Navigation state={state} actions={actions}></Navigation>
             <div className="container-fluid">

@@ -1,11 +1,12 @@
 import { getJsonFromLocalStorage } from "../../utils/functions/get-json-from-local-storage.fn";
 import { defaultCategories } from "../constants/default-categories.const";
 import { defaultCuisines } from "../constants/default-cuisines.const";
+import { any } from "prop-types";
 
 export type StateNode = 'greeting' | 'restaurants/list' | 'restaurants/firstFetch' | 
 'categories/list' | 'categories/firstFetch' | 'categories/inView' | 
 'cuisines/list' | 'cuisines/firstFetch' | 'cuisines/inView' | 
-'priceRangeFilter' | 'ratingFilter';
+'sortByType' | 'sortByOrder' | 'selectedRestaurant';
 
 export type State_Zomato_Basic_List = { name: string, id: string | number }[];
 export type State_Zomato_Restaurant_List = { name: string, id: string | number, price: number, rating: string }[];
@@ -17,6 +18,7 @@ export interface State {
         firstFetch: boolean,
     list: State_Zomato_Restaurant_List
     },
+    selectedRestaurant: any,
     categories: {
         firstFetch: boolean,
         list: State_Zomato_Basic_List,
@@ -31,8 +33,8 @@ export interface State {
         cuisinesArray?: number[],
         categoryArray?: number[]
     },
-    priceRangeFilter: string,
-    ratingFilter: string
+    sortByType: '1' | '2',
+    sortByOrder: '1' | '2'
 }
 
 export const state: State = {
@@ -41,6 +43,7 @@ export const state: State = {
         firstFetch: false,
         list: []
     },
+    selectedRestaurant: undefined,
     categories: {
         firstFetch: false,
         list: [],
@@ -51,6 +54,6 @@ export const state: State = {
         list: [],
         inView: (getJsonFromLocalStorage('cuisinesInView') as State_List_In_View) || defaultCuisines
     },
-    priceRangeFilter: '3',
-    ratingFilter: '5'
+    sortByType: '2',
+    sortByOrder: '2'
 };

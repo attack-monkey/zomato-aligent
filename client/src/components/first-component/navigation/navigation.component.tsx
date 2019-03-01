@@ -4,6 +4,8 @@ import { Actions } from '../../../actions/actions';
 import { CheckList } from '../../shared/check-list/check-list.component';
 import { Slider } from '../../shared/slider/slider.component';
 import { CuisineList } from './cuisine-list/cuisine-list.component';
+import { minIndicatorFor } from './min-indicator-for.fn';
+import { maxIndicatorFor } from './max-indicator-for.fn';
 
 interface Props { state: State, actions: Actions };
 export const Navigation = ({ state, actions }: Props) => {
@@ -22,24 +24,24 @@ export const Navigation = ({ state, actions }: Props) => {
                 <div className="clearfix"></div>
             </div>
             <div className="float-right">
-                <h3>Rating</h3>
+                <h3>Sort By</h3>
                 <Slider
-                    sliderType='rating'
-                    min='0'
-                    max='5'
-                    value={state.ratingFilter}
-                    minIndicator='1'
-                    maxIndicator='5'
+                    sliderType='sortBy'
+                    min='1'
+                    max='2'
+                    value={state.sortByType}
+                    minIndicator='Price'
+                    maxIndicator='Rating'
                     actions={actions}
                 ></Slider>
-                <h3>Cost</h3>
+                <h3>{state.sortByType === '1' ? 'Price' : 'Ratings'}</h3>
                 <Slider
-                    sliderType='price'
+                    sliderType='hiLo'
                     min='1'
-                    max='4'
-                    value={state.priceRangeFilter}
-                    minIndicator='$'
-                    maxIndicator='$$$$'
+                    max='2'
+                    value={state.sortByOrder}
+                    minIndicator={minIndicatorFor(state.sortByType)}
+                    maxIndicator={maxIndicatorFor(state.sortByType)}
                     actions={actions}
                 ></Slider>
             </div>

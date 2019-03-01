@@ -25,6 +25,7 @@
   "homepage": "https://github.com/attack-monkey/react-fn-seed#readme",
   "dependencies": {
     "@types/react": "^16.8.4",
+    "awesome-debounce-promise": "^2.1.0",
     "bootstrap": "^4.3.1",
     "react": "^16.8.3",
     "react-fn": "^1.0.3"

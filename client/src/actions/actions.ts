@@ -10,8 +10,8 @@ export interface Actions {
     getCategories: () => void,
     getCuisines: () => void,
     updateListItemActiveState: (id: string, active: boolean) => void,
-    updateRatingSlider: (newValue: string) => void,
-    updatePriceSlider: (newValue: string) => void
+    updateSortBySlider: (newValue: string) => void,
+    updateHiLoSlider: (newValue: string) => void
 }
 export const actions = (fn: Fn): Actions => ({
     getRestaurants: async () => {
@@ -20,12 +20,15 @@ export const actions = (fn: Fn): Actions => ({
         }
         const categoriesQueryParams = convertToQueryParams('categories', (fn.getState() as State).categories.inView);
         const cuisinesQueryParams = convertToQueryParams('cuisines', (fn.getState() as State).cuisines.inView);
-        const queryParams = joinQueryParams([categoriesQueryParams, cuisinesQueryParams]);
+        const sortParams = 'sort=' + ((fn.getState() as State).sortByType === '1' ? 'cost' : 'rating');
+        const orderParams = 'order=' + ((fn.getState() as State).sortByOrder === '1' ? 'asc' : 'desc');
+        const queryParams = joinQueryParams([categoriesQueryParams, cuisinesQueryParams, sortParams, orderParams]);
         console.log(queryParams);
         try {
-            const result = await $fetch('http://localhost:3000/restaurants' + queryParams, {
-                method: 'get'
-            });
+            // const result = await $fetch('http://localhost:3000/restaurants' + queryParams, {
+            //     method: 'get'
+            // });
+            const result = { message: []};
             return fn.updateState(
                 stateNode('restaurants/list'),
                 stateValue<State_Zomato_Basic_List>(result.message)
@@ -94,11 +97,11 @@ export const actions = (fn: Fn): Actions => ({
             { rerender: false }
         )
     },
-    updateRatingSlider: (newValue: string) => {
-        fn.updateState(stateNode('ratingFilter'), newValue)
+    updateSortBySlider: (newValue: string) => {
+        return fn.updateState(stateNode('sortByType'), newValue);
     },
-    updatePriceSlider: (newValue: string) => {
-        fn.updateState(stateNode('priceRangeFilter'), newValue)
+    updateHiLoSlider: (newValue: string) => {
+        fn.updateState(stateNode('sortByOrder'), newValue) 
     }
 });
 

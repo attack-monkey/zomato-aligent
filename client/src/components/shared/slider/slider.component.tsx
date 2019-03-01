@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { State } from '../../../state/state';
 import { Actions } from '../../../actions/actions';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { debouncedGetRestaurants, debouncedUpdateState } from './slider.fns';
 
 const sliderStyle = {
     minWidth: '200px'
@@ -10,7 +12,7 @@ const style = Object.assign(
 );
 
 interface Props {
-    sliderType: 'price' | 'rating', minIndicator: string, maxIndicator: string,
+    sliderType: 'sortBy' | 'hiLo', minIndicator: string, maxIndicator: string,
     min: string, max: string, value: string, actions: Actions
 };
 export const Slider = ({ sliderType, minIndicator, maxIndicator, min, max, value, actions }: Props) => {
@@ -22,16 +24,9 @@ export const Slider = ({ sliderType, minIndicator, maxIndicator, min, max, value
                 min={min}
                 max={max}
                 value={value}
-                onChange={(ev) => {
-                    switch (sliderType) {
-                        case 'price':
-                        actions.updatePriceSlider(ev.target.value);
-                        break;
-                        case 'rating':
-                        actions.updateRatingSlider(ev.target.value);
-                        break;
-                        default: break;
-                    }
+                onChange={ (ev) => {
+                    debouncedUpdateState(ev.target.value, sliderType, actions);
+                    debouncedGetRestaurants(actions);
                 }}
             />
             <div>

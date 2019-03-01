@@ -11,11 +11,6 @@ const parseCuisines = require('./functions/parse-cuisines.fn');
 app.use(express.json());
 app.use(cors());
 
-const restaurantsCache = {
-    value: undefined,
-    expiry: undefined
-};
-
 const categoriesCache = {
     value: undefined,
     expiry: undefined
@@ -28,17 +23,16 @@ const cuisinesCache = {
 
 app.get('/restaurants', async (req, res) => {
     try {
-        if (restaurantsCache.value) {
-            console.log('- Returning restaurants from cache');
-            res.send(restaurantsCache.value);
-            return;
-        }
+        const queryString = Object
+            .keys(req.query)
+            .map(key => key + '=' + req.query[key])
+            .join('&');
+        console.log(queryString);
         results = await fetch(
             `
                 ${config.zomatoUrl}search?
                 entity_id=${config.cityId}&
-                entity_type=city&count=2&
-                cuisines=25
+                entity_type=city&count=20&${queryString}
             `,
             {
                 headers: config.requestHeaders,
@@ -47,8 +41,6 @@ app.get('/restaurants', async (req, res) => {
         );
         if (results.error) throw results.error;
         const parsedResults = parseRestaurants(results.restaurants);
-        console.log('- Caching restaurants');
-        restaurantsCache.value = { message: parsedResults };
         console.log('- Returning fresh restaurants');
         res.send({ message: parsedResults });
     } catch (e) {

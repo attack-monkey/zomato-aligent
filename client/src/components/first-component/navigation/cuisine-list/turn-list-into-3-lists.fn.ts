@@ -13,6 +13,5 @@ export const turnListInto3Lists = (list: State_List_In_View) => {
             list.slice(8, 12)
         ];
     }
-    // console.log(lists);
     return lists;
 };

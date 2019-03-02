@@ -4,11 +4,11 @@ import { appTitle } from "../../../../constants/app-title.const";
 
 export const NoSelectedRestaurant = () => {
     return (
-        <div>
+        <div className="text-center text-primary pt-5">
             <h1 className="display-4">
-                Welcome to 
+                {appTitle} 
             </h1>
-            <p className="lead">{appTitle}</p>
+            <h2 className="display-6 text-grey-dark"><em>A simple little food finder</em></h2>
         </div>
     );
 }

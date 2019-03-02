@@ -24,7 +24,6 @@ export const actions = (fn: Fn): Actions => ({
         const sortParams = 'sort=' + ((fn.getState() as State).sortByType === '1' ? 'cost' : 'rating');
         const orderParams = 'order=' + ((fn.getState() as State).sortByOrder === '1' ? 'asc' : 'desc');
         const queryParams = joinQueryParams([categoriesQueryParams, cuisinesQueryParams, sortParams, orderParams]);
-        console.log(queryParams);
         try {
             const result = await $fetch('http://localhost:3000/restaurants' + queryParams, {
                 method: 'get'

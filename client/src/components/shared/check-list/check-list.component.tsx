@@ -8,7 +8,7 @@ import { ListType } from './list-type.model';
 interface Props { list: State_List_In_View, listType: ListType, showMore: boolean, actions: Actions };
 export const CheckList = ({ list, listType, showMore, actions }: Props) => {
     return (
-        <div className="float-left">
+        <div className="float-left nav-check-list">
             { displayItems(list, listType, actions) }
             { showMore ? (<TextIndentWithCheckbox text="Show more"></TextIndentWithCheckbox>) : '' }
         </div>

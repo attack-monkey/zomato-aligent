@@ -6,9 +6,9 @@ import { Actions } from "../../../actions/actions";
 export const displayItems = (list: State_List_In_View, listType: ListType, actions: Actions) => {
     return list.map((item => {
         return (
-            <div className="form-check" key={item.id}>
+            <div className="custom-control custom-checkbox" key={item.id}>
                 <input 
-                    className="form-check-input"
+                    className="custom-control-input"
                     type="checkbox"
                     defaultChecked={item.active}
                     id={listType + '_' + item.id}
@@ -19,7 +19,7 @@ export const displayItems = (list: State_List_In_View, listType: ListType, actio
                         actions.getRestaurants();
                     }}
                 ></input>
-                <label className="form-check-label" htmlFor={listType + '_' + item.id}>
+                <label className="custom-control-label" htmlFor={listType + '_' + item.id}>
                     { item.vanityName || item.name || '...' }
             </label>
             </div>

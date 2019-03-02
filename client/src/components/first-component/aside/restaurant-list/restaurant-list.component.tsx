@@ -8,10 +8,10 @@ export const RestaurantList = ({ state, actions }: Props) => {
     if (!state.restaurants.firstFetch) { actions.getRestaurants(); }
     return (
         <div>
-            <h3>Results</h3>
-            <ul className="list-group list-group-flush">
+            <h6 className="label pt-4 pl-5">Results</h6>
+            <div className="list-group list-group-flush">
                 { displayList(state, actions) }
-            </ul>
+            </div>
         </div>
     );
 }

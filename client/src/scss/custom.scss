@@ -1,1 +1,61 @@
+$theme-colors: (
+  "primary": #50bebf,
+  "grey-dark": #4e5456,
+  "grey-mid": #e5e5e5,
+  "grey-light": #f1f1f1
+);
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
+
+p, label {
+    font-size: 0.9em;
+}
+
+// components
+
+.nav-list-outer {
+    margin-right: 100px;
+}
+
+.nav-check-list {
+    margin-right: 40px;
+}
+
+.aside {
+    overflow-y: scroll;
+    min-height: 600px; 
+}
+
+.main-panel {
+    min-height: 600px;
+}
+
+.restaurant-list {
+    background-color: theme-color("grey-mid");
+    .active{
+        background-color: theme-color("primary");
+    }
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.square-container {
+    background-color: red;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+    .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+      }
+  }
+  

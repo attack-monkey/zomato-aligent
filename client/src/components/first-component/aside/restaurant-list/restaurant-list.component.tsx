@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { State } from '../../../../state/state';
 import { Actions } from '../../../../actions/actions';
+import { displayList } from './display-list.fn';
 
 interface Props { state: State, actions: Actions };
 export const RestaurantList = ({ state, actions }: Props) => {
+    if (!state.restaurants.firstFetch) { actions.getRestaurants(); }
     return (
         <div>
-            <h3>Results</h3>
-            <ul className="list-group list-group-flush">
-                <li className="list-group-item">Cras justo odio</li>
-                <li className="list-group-item">Dapibus ac facilisis in</li>
-                <li className="list-group-item">Morbi leo risus</li>
-                <li className="list-group-item">Porta ac consectetur ac</li>
-                <li className="list-group-item">Vestibulum at eros</li>
-            </ul>
+            <h6 className="label pt-4 pl-5">Results</h6>
+            <div className="list-group list-group-flush">
+                { displayList(state, actions) }
+            </div>
         </div>
     );
 }

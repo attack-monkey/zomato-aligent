@@ -14,8 +14,12 @@ export const firstComponent = ({state, actions}: Props) => {
             <Navigation state={state} actions={actions}></Navigation>
             <div className="container-fluid">
                 <div className="row">
-                    <Aside state={state} actions={actions}></Aside>
-                    <Main state={state} actions={actions}></Main>
+                    <div className="col-md-12">
+                        <div className="row">
+                            <Aside state={state} actions={actions}></Aside>
+                            <Main state={state} actions={actions}></Main>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

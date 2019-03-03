@@ -12,7 +12,7 @@ export const Navigation = ({ state, actions }: Props) => {
     if (!state.categories.firstFetch) { actions.getCategories(); }
     if (!state.cuisines.firstFetch) { actions.getCuisines(); }
     return (
-        <div id="navigation" className="container-fluid mt-5 mb-3 px-md-5">
+        <div id="navigation" className="container container-large mt-5 mb-3 px-md-5">
             <div className="row">
                 <div className="col-md-12">
                     <div className="float-left nav-list-outer">

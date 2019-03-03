@@ -46,6 +46,7 @@ app.get('/restaurants', async (req, res) => {
         res.sendStatus('500');
     }
 });
+
 app.get('/restaurants/:id', async (req, res) => {
     try {
         console.log('- Getting restaurant => ' + req.params.id);
@@ -64,6 +65,7 @@ app.get('/restaurants/:id', async (req, res) => {
         res.sendStatus('500');
     }
 });
+
 app.get('/categories', async (req, res) => {
     try {
         if (categoriesCache.value) {
@@ -92,6 +94,7 @@ app.get('/categories', async (req, res) => {
         res.sendStatus('500');
     } 
 });
+
 app.get('/cuisines', async (req, res) => {
     try {
         if (cuisinesCache.value) {

@@ -8,7 +8,7 @@ import { mainHeightAdjustable } from '../../../react-styles/main-height-adjustab
 interface Props { state: State, actions: Actions };
 export const Main = ({ state, actions }: Props) => {
     return (
-        <div className="main-panel col-md-8 bg-grey-light pt-3 px-md-5" style={mainHeightAdjustable}>
+        <div className="main-panel col-lg-8 bg-grey-light pt-3 px-md-5" style={mainHeightAdjustable}>
             <div className="jumbotron jumbotron-fluid bg-grey-light">
                 {
                     state.selectedRestaurant ? (

@@ -4,20 +4,13 @@ import { Actions } from '../../../actions/actions';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { debouncedGetRestaurants, debouncedUpdateState } from './slider.fns';
 
-const sliderStyle = {
-    minWidth: '200px'
-};
-const style = Object.assign(
-    {}, sliderStyle
-);
-
 interface Props {
     sliderType: 'sortBy' | 'hiLo', minIndicator: string, maxIndicator: string,
     min: string, max: string, value: string, actions: Actions
 };
 export const Slider = ({ sliderType, minIndicator, maxIndicator, min, max, value, actions }: Props) => {
     return (
-        <div className="col-md-4" style={style}>
+        <div className="slider">
             <input
                 type="range"
                 className="custom-range"

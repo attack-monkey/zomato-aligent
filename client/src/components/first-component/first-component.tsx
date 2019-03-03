@@ -6,18 +6,20 @@ import { Navigation } from './navigation/navigation.component';
 import { Aside } from './aside/aside.component';
 import { Main } from './main/main.component';
 
-interface Props {state: State, actions: Actions};
-export const firstComponent = ({state, actions}: Props) => {
+interface Props { state: State, actions: Actions };
+export const firstComponent = ({ state, actions }: Props) => {
     return (
         <div>
             <Header></Header>
             <Navigation state={state} actions={actions}></Navigation>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="row">
-                            <Aside state={state} actions={actions}></Aside>
-                            <Main state={state} actions={actions}></Main>
+            <div className="bg-grey-light">
+                <div className="container container-large">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="row">
+                                <Aside state={state} actions={actions}></Aside>
+                                <Main state={state} actions={actions}></Main>
+                            </div>
                         </div>
                     </div>
                 </div>

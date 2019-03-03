@@ -7,7 +7,7 @@ import { mainHeightAdjustable } from '../../../react-styles/main-height-adjustab
 interface Props { state: State, actions: Actions };
 export const Aside = ({ state, actions }: Props) => {
     return (
-        <div className="col-md-4 bg-grey-mid px-0" >
+        <div className="col-lg-4 bg-grey-mid px-0" >
             <div className="aside" style={mainHeightAdjustable}>
                 <RestaurantList state={state} actions={actions}></RestaurantList>
             </div>

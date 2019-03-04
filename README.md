@@ -11,9 +11,10 @@
 
     ```javascript
 
-    // eg.
+    // Note: this is my real api key for a basic account...
+    // Normally I wouldn't commit this to source - but for simplicity sake, here it is...
 
-    module.exports = 'abc123';
+    module.exports = '00eb7c42ec7ccf5f9188a5792fd05afb';
 
     ```
 
